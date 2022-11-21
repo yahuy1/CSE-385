@@ -1,0 +1,63 @@
+/*
+Copyright Notice: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The codes in this file are prepared for the students of CSE 274 using the content of the following webpage:
+https://www.sqlitetutorial.net/sqlite-java/sqlite-jdbc-driver/
+The codes in this file are shared with the students of CSE 274 course by the instructor of the course,
+Seyed Mahdi Ghamkhari, so that students use the codes for learning purpose.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
+
+class databaseManager {
+
+	Connection myConnection;
+
+	databaseManager() {
+
+		myConnection = null;
+
+	}
+
+	
+	public void connect() {
+
+		try {
+
+			String url = "jdbc:sqlite:PATH_TO_Project4/bin/chinook.db";
+
+			myConnection = DriverManager.getConnection(url);
+
+			System.out.println("Connection to SQLite has been established.");
+
+		
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (myConnection != null) {
+					myConnection.close();
+				}
+			} catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
+
+}
+
+
+class Application {
+	public static void main(String[] args) {
+		databaseManager myConnection = new databaseManager();
+
+		myConnection.connect();
+	}
+}
